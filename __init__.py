@@ -16,6 +16,7 @@ _FAMILIES = [
     "minimax_music3",
     "mflux_image",
     "stem_separation",
+    "emotion",
 ]
 
 for _name in _FAMILIES:
