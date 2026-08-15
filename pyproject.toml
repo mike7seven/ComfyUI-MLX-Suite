@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-mlx-suite"
+description = "Apple Silicon MLX model nodes for ComfyUI — MiniMax Music 3, with mflux image models planned."
+version = "0.1.0"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+
+[project.urls]
+Repository = "https://github.com/mike7seven/ComfyUI-MLX-Suite"
+
+[tool.comfy]
+PublisherId = "mike7seven"
+DisplayName = "ComfyUI MLX Suite"
+Icon = ""

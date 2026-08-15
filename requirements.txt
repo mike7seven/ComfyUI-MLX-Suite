@@ -1,0 +1,17 @@
+# Apple Silicon only. Install into the venv of a ComfyUI instance dedicated to MLX —
+# these conflict with a torch-oriented instance (mlx-lm pulls transformers 5.x).
+#
+# mlx is pinned below 0.32.0 because mflux requires <0.32.0 while mlx-lm requires
+# >=0.31.2. That leaves exactly 0.31.2. Re-check the intersection before bumping.
+mlx==0.31.2
+mlx-metal==0.31.2
+mlx-lm==0.31.3
+soundfile
+
+# MiniMax Music 3 runtime. Until the progress_callback PR lands upstream, install
+# from the branch that carries it — see README.
+# https://github.com/mikolaj92/minimax-music3-mlx/pull/1
+minimax-music3-mlx @ git+https://github.com/mike7seven/minimax-music3-mlx.git@progress-callback
+
+# Image models (mflux) — not yet wired to nodes.
+mflux

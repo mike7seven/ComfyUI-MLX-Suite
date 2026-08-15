@@ -1,0 +1,49 @@
+ComfyUI-MLX-Suite
+Copyright 2026 mike7seven
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+This project provides ComfyUI node wrappers only. It does not redistribute model
+weights or inference implementations.
+
+--------------------------------------------------------------------------------
+MiniMax Music 3 nodes
+--------------------------------------------------------------------------------
+
+The nodes in nodes/minimax_music3.py wrap minimax-music3-mlx, an independent Apple
+MLX inference port by mikolaj92, used as a dependency and not vendored here:
+
+    https://github.com/mikolaj92/minimax-music3-mlx
+    Copyright 2026 mikolaj92, Apache License 2.0
+
+patches/minimax-mlx-progress.patch is a derivative of that project, offered upstream
+as https://github.com/mikolaj92/minimax-music3-mlx/pull/1 and carried here only until
+it is merged.
+
+MiniMax-Music3 model weights, tokenizer, and official inference contract are
+Copyright (c) 2026 MiniMax, licensed under the MiniMax-Music3 Community License:
+
+    https://huggingface.co/MiniMaxAI/MiniMax-Music3
+
+Weights are downloaded by the user from Hugging Face and are never redistributed by
+this project. Commercial products shipping the model must display "MiniMax-Music3";
+yearly revenue above USD 20M requires separate MiniMax authorization (api@minimax.io).
+
+MLX-converted weights used by these nodes are published by mikoy92:
+
+    https://huggingface.co/collections/mikoy92/minimax-music-3-mlx-6a7eb2a8e09d246e6d029fad
+
+--------------------------------------------------------------------------------
+Upstream lineage (as documented by minimax-music3-mlx)
+--------------------------------------------------------------------------------
+
+MiniMax-Music3 was fine-tuned from Qwen3-8B (Apache License 2.0).
+The flow-matching DiT is adapted from Stable Audio tools (MIT).
+The vocoder is adapted from Descript Audio Codec (MIT).
+
+--------------------------------------------------------------------------------
+Planned
+--------------------------------------------------------------------------------
+
+Image-model nodes will wrap mflux (https://github.com/filipstrand/mflux), also used
+as a dependency rather than vendored.
