@@ -15,6 +15,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {}
 _FAMILIES = [
     "minimax_music3",
     "mflux_image",
+    "stem_separation",
 ]
 
 for _name in _FAMILIES:

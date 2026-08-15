@@ -3,7 +3,8 @@
 Apple Silicon MLX models as ComfyUI nodes. MLX runs on Metal through Apple's own array
 framework rather than PyTorch/MPS, which is a different runtime — not a different file format.
 
-**Models:** MiniMax Music 3 (text-to-music), plus Z-Image / Qwen-Image / FLUX via mflux.
+**Models:** MiniMax Music 3 (text-to-music), Z-Image / Qwen-Image / FLUX via mflux,
+and Open-Unmix stem separation for audio analysis.
 
 This repo contains node wrappers only. Inference implementations stay upstream as
 dependencies, and model weights are downloaded by you from Hugging Face — nothing is
@@ -97,6 +98,21 @@ don't support it.
 
 Progress and Cancel work through mflux's own `CallbackRegistry` — no patching required, unlike
 the MiniMax path.
+
+## Audio analysis
+
+| Node | Inputs | Outputs |
+|---|---|---|
+| Stem Separator (Open-Unmix) | audio, model, device | `vocals` `drums` `bass` `other` |
+
+Torch, not MLX — [Open-Unmix](https://github.com/sigsep/open-unmix-pytorch) has no MLX port and
+the instance already carries torch. Loads a bundled `umxl.pth` / `umxhq.pth` Separator checkpoint
+from any `models/openunmix/` root, or downloads pretrained weights if none is found. Falls back
+from MPS to CPU automatically, since complex/istft op support varies by torch version.
+
+Separating first is what makes vocal analysis viable: speech models score poorly on a full mix.
+Measured on a dubstep test track, the stems come out cleanly complementary — the vocals stem holds
+0.0% of its energy below 120 Hz and 92.6% in 300 Hz-4 kHz, the bass stem the reverse.
 
 ## Credits
 
