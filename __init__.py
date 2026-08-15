@@ -14,6 +14,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {}
 # Add a module name here to register a new model family.
 _FAMILIES = [
     "minimax_music3",
+    "mflux_image",
 ]
 
 for _name in _FAMILIES:

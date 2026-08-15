@@ -3,8 +3,7 @@
 Apple Silicon MLX models as ComfyUI nodes. MLX runs on Metal through Apple's own array
 framework rather than PyTorch/MPS, which is a different runtime — not a different file format.
 
-**Shipping now:** MiniMax Music 3 (text-to-music).
-**Planned:** mflux image models (Qwen-Image, Z-Image, FLUX).
+**Models:** MiniMax Music 3 (text-to-music), plus Z-Image / Qwen-Image / FLUX via mflux.
 
 This repo contains node wrappers only. Inference implementations stay upstream as
 dependencies, and model weights are downloaded by you from Hugging Face — nothing is
@@ -76,6 +75,28 @@ Once merged, switch the requirement back to upstream and delete the patch.
 - Roughly **2–5.5x realtime** depending on `steps`; peak MLX memory ~16–17 GB at 8-bit.
 - Weights load lazily (~0.03s) — the real cost is paging during the first generate, so
   caching the loader saves a few percent, not a load.
+
+## mflux image models
+
+| Node | Inputs | Output |
+|---|---|---|
+| mflux Loader (MLX) | `model`, `quantize`, optional `model_path` | `MFLUX_MODEL` |
+| mflux Generate (MLX) | model, prompt, width, height, steps, guidance, seed, optional negative_prompt | `IMAGE` |
+
+All [mflux](https://github.com/filipstrand/mflux) variants share one constructor shape and one
+`generate_image()` entry point, so a single node pair covers every family:
+
+`z-image-turbo` · `z-image` · `qwen-image` · `qwen-image-edit` · `flux-schnell` · `flux-dev` · `flux-krea-dev`
+
+Weights download from Hugging Face on first load into the HF cache. Point `model_path` at a
+local directory to use an already-downloaded conversion instead.
+
+`quantize` accepts `none/3/4/5/6/8`; 8 is a good default on a 128 GB machine, 4 for tighter memory.
+Turbo and schnell models want ~4 steps, dev models ~20–30. `guidance` is ignored by models that
+don't support it.
+
+Progress and Cancel work through mflux's own `CallbackRegistry` — no patching required, unlike
+the MiniMax path.
 
 ## Credits
 

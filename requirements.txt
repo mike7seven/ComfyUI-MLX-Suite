@@ -13,5 +13,5 @@ soundfile
 # https://github.com/mikolaj92/minimax-music3-mlx/pull/1
 minimax-music3-mlx @ git+https://github.com/mike7seven/minimax-music3-mlx.git@progress-callback
 
-# Image models (mflux) — not yet wired to nodes.
+# Image models: Z-Image, Qwen-Image, FLUX.
 mflux
